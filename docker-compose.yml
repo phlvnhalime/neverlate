@@ -1,0 +1,47 @@
+services:
+    db:
+      image: postgres:15
+      environment:
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+
+    backend-python:
+      build: ./backend-python
+      image: neverlate-python:latest
+      environment:
+        DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      volumes:
+        - ./backend-python:/app 
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db
+    backend-node:
+      build: ./backend-node
+      image: neverlates-node:latest
+      environment:
+        DB_HOST: db
+      volumes:
+        - ./backend-node:/app
+      ports:
+       - "3000:3000"
+      depends_on:
+        - db
+
+    frontend:
+      build: ./frontend
+      ports:
+        - "8080:80"
+      depends_on:
+        - backend-python
+        - backend-node
+
+
+volumes:
+  db_data:
+
