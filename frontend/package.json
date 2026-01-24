@@ -1,0 +1,7 @@
+{
+    "name" : "neverlate-frontend",
+    "version" : "1.0.0",
+    "scripts" : {
+        "dev" : "echo 'Frontend is placeholder right now!'"
+    }
+}
