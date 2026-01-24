@@ -10,32 +10,24 @@ stages:
   - secret-detection
   - build
 
-# 1. GÜVENLİK TARAMALARI (Senin eklediklerin)
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
 
-sast:
-  stage: test
-
-secret_detection:
-  stage: secret-detection
-
-# 2. SENİN UYGULAMANIN TESTİ
 run_python_test:
   stage: test
-  image: ubuntu:22.04
+  image: python:3.11-slim
   script:
-    - apt-get update && apt-get install -y python3
+    - cd backend-python
+    - pip install -r requirements.txt
     - python3 main.py
-    - echo "Python kodu basariyla calisti!"
+    
 
-# 3. DOCKER BUILD (Ubuntu tabanli)
-build_docker_image:
+build_backend_python:
   stage: build
   image: docker:24.0.5
   services:
     - docker:24.0.5-dind
   script:
-    - docker build -t organization-todo-app .
-    - echo "Docker imaji basariyla olusturuldu!"
+    - docker build -t neverlate-python ./backend-python
+    - echo "Python imaji basariyla olusturuldu!"
