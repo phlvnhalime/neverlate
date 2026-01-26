@@ -1,5 +1,23 @@
-# env files
+# --- Environment & Variables ---
+# Stores local environment variables and secrets
 .env
-*/.env
+.env.*
 .swan
-*/.pyc
+
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# Virtual environments
+.venv/git 
+venv/
+env/
+
+# --- Security & Credentials ---
+credentials.json
+token.json
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
