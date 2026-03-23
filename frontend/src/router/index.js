@@ -8,11 +8,6 @@ const routes = [
     name: 'landing',
     component: LandingView,
   },
-  {
-    path: '/app',
-    name: 'app',
-    component: AppView,
-  },
 ]
 
 export default createRouter({

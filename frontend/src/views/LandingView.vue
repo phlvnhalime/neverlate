@@ -8,7 +8,6 @@
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#download">Download</a>
-          <RouterLink to="/app" class="btn btn-primary btn-sm">Open App</RouterLink>
         </div>
       </div>
     </nav>
@@ -25,9 +24,6 @@
         with a smart to-do list — so you always know what's next.
       </p>
       <div class="hero-actions">
-        <RouterLink to="/app" class="btn btn-primary btn-lg">
-          Open Web App →
-        </RouterLink>
         <a href="#download" class="btn btn-outline btn-lg">Download the App</a>
       </div>
 
@@ -74,29 +70,15 @@
     <section class="download" id="download">
       <div class="download-inner">
         <h2>Take it everywhere</h2>
-        <p>Available on iOS, Android, and right here in your browser.</p>
+        <p>Available only for macOS</p>
         <div class="download-buttons">
-          <a class="store-btn" href="#" title="Coming soon">
+          <a class="store-btn" href="/downloads/NeverLate-mac.dwg" download>
             <span class="store-icon">🍎</span>
             <div>
-              <div class="store-label">Download on the</div>
-              <div class="store-name">App Store</div>
+              <div class="store-label">Download for macOS</div>
+              <div class="store-name">macOS (.dmg)</div>
             </div>
           </a>
-          <a class="store-btn" href="#" title="Coming soon">
-            <span class="store-icon">▶</span>
-            <div>
-              <div class="store-label">Get it on</div>
-              <div class="store-name">Google Play</div>
-            </div>
-          </a>
-          <RouterLink to="/app" class="store-btn store-web">
-            <span class="store-icon">🌐</span>
-            <div>
-              <div class="store-label">Use it now on</div>
-              <div class="store-name">Web App</div>
-            </div>
-          </RouterLink>
         </div>
       </div>
     </section>
