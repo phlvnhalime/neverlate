@@ -1,23 +1,23 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
+from datetime import datetime, timezone
 from database import Base
 
-# ── CONCEPT: MODEL = TABLE ───────────────────────────────────────────────────
-#  This class defines what the "tasks" table looks like in PostgreSQL.
-#  Each attribute = one column in the table.
-#
-#  When the app starts, SQLAlchemy reads this and creates the table
-#  in PostgreSQL automatically if it doesn't exist yet.
-#
-#  SQL equivalent:
-#  CREATE TABLE tasks (
-#      id          SERIAL PRIMARY KEY,
-#      title       VARCHAR NOT NULL,
-#      description VARCHAR,
-#      completed   BOOLEAN DEFAULT FALSE,
-#      category    VARCHAR DEFAULT 'General',
-#      priority    VARCHAR DEFAULT 'Medium'
-#  );
-# ────────────────────────────────────────────────────────────────────────────
+
+class User(Base):
+    __tablename__ = "users"
+
+    id                = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    first_name        = Column(String, nullable=False)
+    last_name         = Column(String, nullable=False)
+    email             = Column(String, unique=True, nullable=False, index=True)
+    hashed_password   = Column(String, nullable=False)
+    is_verified       = Column(Boolean, default=False)
+    verification_code = Column(String, nullable=True)
+    created_at        = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    tasks = relationship("Task", back_populates="owner")
+
 
 class Task(Base):
     __tablename__ = "tasks"
@@ -28,3 +28,6 @@ class Task(Base):
     completed   = Column(Boolean, default=False)
     category    = Column(String, default="General")
     priority    = Column(String, default="Medium")
+    user_id     = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    owner = relationship("User", back_populates="tasks")
