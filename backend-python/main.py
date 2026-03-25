@@ -144,6 +144,8 @@ def create_task(
         completed=task.completed,
         category=task.category,
         priority=task.priority,
+        duration_start=task.duration_start,
+        duration_end=task.duration_end,
         user_id=current_user.id,
     )
     db.add(new_task)
@@ -165,11 +167,13 @@ def update_task(
     ).first()
     if not task:
         raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
-    task.title       = updated.title
-    task.description = updated.description
-    task.completed   = updated.completed
-    task.category    = updated.category
-    task.priority    = updated.priority
+    task.title          = updated.title
+    task.description    = updated.description
+    task.completed      = updated.completed
+    task.category       = updated.category
+    task.priority       = updated.priority
+    task.duration_start = updated.duration_start
+    task.duration_end   = updated.duration_end
     db.commit()
     db.refresh(task)
     return task

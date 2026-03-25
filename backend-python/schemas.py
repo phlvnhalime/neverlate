@@ -6,11 +6,13 @@ from pydantic import BaseModel, EmailStr
 
 class TaskCreate(BaseModel):
     """Shape of the JSON the frontend sends when CREATING a task."""
-    title:       str
-    description: Optional[str] = None
-    completed:   bool = False
-    category:    str  = "General"
-    priority:    str  = "Medium"
+    title:          str
+    description:    Optional[str] = None
+    completed:      bool = False
+    category:       str  = "General"
+    priority:       str  = "Medium"
+    duration_start: Optional[int] = None
+    duration_end:   Optional[int] = None
 
 
 class Task(TaskCreate):

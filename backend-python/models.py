@@ -27,7 +27,9 @@ class Task(Base):
     description = Column(String, nullable=True)
     completed   = Column(Boolean, default=False)
     category    = Column(String, default="General")
-    priority    = Column(String, default="Medium")
-    user_id     = Column(Integer, ForeignKey("users.id"), nullable=True)
+    priority       = Column(String, default="Medium")
+    duration_start = Column(Integer, nullable=True)
+    duration_end   = Column(Integer, nullable=True)
+    user_id        = Column(Integer, ForeignKey("users.id"), nullable=True)
 
     owner = relationship("User", back_populates="tasks")
