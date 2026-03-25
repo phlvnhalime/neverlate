@@ -18,6 +18,9 @@ env/
 credentials.json
 token.json
 
+# --- Node ---
+node_modules/
+
 # --- OS Specific ---
 .DS_Store
 Thumbs.db

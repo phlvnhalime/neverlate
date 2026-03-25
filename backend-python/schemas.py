@@ -1,14 +1,8 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
-# ── CONCEPT: SCHEMAS vs MODELS ───────────────────────────────────────────────
-#  models.py  → defines the DATABASE table (SQLAlchemy)
-#  schemas.py → defines what JSON goes IN and OUT of your API (Pydantic)
-#
-#  They look similar but serve different purposes:
-#  - Model = how data is stored in PostgreSQL
-#  - Schema = how data is validated and shaped for the API
-# ────────────────────────────────────────────────────────────────────────────
+
+# ── Task schemas ─────────────────────────────────────────────────────────────
 
 class TaskCreate(BaseModel):
     """Shape of the JSON the frontend sends when CREATING a task."""
@@ -22,6 +16,43 @@ class TaskCreate(BaseModel):
 class Task(TaskCreate):
     """Shape of the JSON the API sends BACK — includes the database-generated id."""
     id: int
+    user_id: Optional[int] = None
 
     class Config:
-        from_attributes = True  # lets Pydantic read SQLAlchemy model objects
+        from_attributes = True
+
+
+# ── Auth schemas ─────────────────────────────────────────────────────────────
+
+class UserRegister(BaseModel):
+    first_name:       str
+    last_name:        str
+    email:            EmailStr
+    password:         str
+    password_confirm: str
+
+
+class UserLogin(BaseModel):
+    email:    EmailStr
+    password: str
+
+
+class VerifyEmail(BaseModel):
+    email: EmailStr
+    code:  str
+
+
+class UserResponse(BaseModel):
+    id:          int
+    first_name:  str
+    last_name:   str
+    email:       str
+    is_verified: bool
+
+    class Config:
+        from_attributes = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type:   str = "bearer"

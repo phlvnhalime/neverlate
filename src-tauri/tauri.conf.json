@@ -37,12 +37,7 @@
   },
   "plugins": {
     "shell": {
-      "sidecar": [
-        {
-          "name": "binaries/neverlate-node",
-          "args": true
-        }
-      ]
+      "open": true
     }
   }
 }
